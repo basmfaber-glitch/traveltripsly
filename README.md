@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 TravelTripsly - aesthetic MVP (frontend + backend)
 
 Local run:
@@ -17,3 +18,6 @@ Deploy:
 Notes:
 - Travelpayouts tracking script is already included in <head> of frontend/index.html.
 - Replace placeholder affiliate links in frontend if needed.
+=======
+# traveltripsly
+>>>>>>> 676f12a1baac7e256c97fe85c366d446f367cce7
