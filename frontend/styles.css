@@ -52,7 +52,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url('https://www.bing.com/images/search?view=detailV2&ccid=CqjJoDid&id=F582639C47753247AFEDE284A72D2912D8608317&thid=OIP.CqjJoDidaNhDQp3QLbIWNQHaEK&mediaurl=https%3A%2F%2Fwww.agoda.com%2Fwp-content%2Fuploads%2F2024%2F10%2FFeatured-image-Philippines.jpg&cdnurl=https%3A%2F%2Fth.bing.com%2Fth%2Fid%2FR.0aa8c9a0389d68d843429dd02db21635%3Frik%3DF4Ng2BIpLaeE4g%26pid%3DImgRaw%26r%3D0&exph=1080&expw=1920&q=vacation+picture+1920x1080&form=IRPRST&ck=E100B5090121520BF1F907CE5F8A6713&selectedindex=24&itb=0&ajaxhist=0&ajaxserp=0&vt=0&sim=11') center center / cover no-repeat;
+ background: url('https://images.unsplash.com/photo-1505764706515-aa95265c5abc?q=80&w=1920&auto=format&fit=crop') center center / cover no-repeat;
 }
 
 .hero-overlay {
