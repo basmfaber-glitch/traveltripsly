@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import fetch from 'node-fetch'; // npm install node-fetch@2
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -7,33 +8,51 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const flights = [
-  { id:"AMS-BCN-1", origin:"AMS", destination:"Barcelona", date:"2025-09-18", price:78, direct:true, duration:"2u 15m", airline:"Transavia", image:"https://images.unsplash.com/photo-1505764706515-aa95265c5abc?q=80&w=1200&auto=format&fit=crop", link:"#"},
-  { id:"AMS-LIS-1", origin:"AMS", destination:"Lissabon", date:"2025-10-03", price:72, direct:false, duration:"3u 05m", airline:"KLM", image:"https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?q=80&w=1200&auto=format&fit=crop", link:"#"},
-  { id:"AMS-ROM-1", origin:"AMS", destination:"Rome", date:"2025-09-27", price:92, direct:true, duration:"2u 25m", airline:"KLM", image:"https://images.unsplash.com/photo-1531572753322-ad063cecc140?q=80&w=1200&auto=format&fit=crop", link:"#"},
-  { id:"AMS-LON-1", origin:"AMS", destination:"Londen", date:"2025-09-21", price:64, direct:true, duration:"1u 10m", airline:"easyJet", image:"https://images.unsplash.com/photo-1488747279002-c8523379faaa?q=80&w=1200&auto=format&fit=crop", link:"#"},
-];
+// Aviasales API key
+const API_KEY = '59099027a3bb2294ff7762bdb872cd2e';
 
-app.get('/api/health',(req,res)=>res.json({ok:true,time:new Date().toISOString()}));
+// Health endpoint
+app.get('/api/health', (req, res) => res.json({ ok: true, time: new Date().toISOString() }));
 
-app.get('/api/flights',(req,res)=>{
-  const q=(req.query.q||'').toString().toLowerCase();
-  const month=(req.query.month||'').toString();
-  const maxPrice=parseFloat(req.query.maxPrice||'0');
-  let out = flights;
-  if(q) out = out.filter(f=> f.destination.toLowerCase().includes(q) || f.origin.toLowerCase().includes(q));
-  if(month && month.length===7) out = out.filter(f=> f.date.startsWith(month));
-  if(!isNaN(maxPrice) && maxPrice>0) out = out.filter(f=> f.price<=maxPrice);
-  out = out.sort((a,b)=>a.price-b.price);
-  res.json(out);
+// Flights endpoint via Aviasales
+app.get('/api/flights', async (req, res) => {
+  try {
+    const q = (req.query.q || '').toString().toLowerCase();
+    const month = (req.query.month || '').toString();
+    const maxPrice = parseFloat(req.query.maxPrice || '0');
+
+    // Basis API URL (pas evt. parameters aan)
+    const API_URL = `https://api.aviasales.com/v2/prices/latest?token=${API_KEY}`;
+
+    const response = await fetch(API_URL);
+    if (!response.ok) throw new Error(`Aviasales API error: ${response.status}`);
+    let flights = await response.json();
+
+    // Filteren lokaal op bestemming/origin, maand, maxPrice
+    if (q) flights = flights.filter(f => 
+      (f.destination && f.destination.toLowerCase().includes(q)) || 
+      (f.origin && f.origin.toLowerCase().includes(q))
+    );
+    if (month && month.length === 7) flights = flights.filter(f => f.date.startsWith(month));
+    if (!isNaN(maxPrice) && maxPrice > 0) flights = flights.filter(f => f.price <= maxPrice);
+
+    // Sorteer op prijs
+    flights = flights.sort((a, b) => a.price - b.price);
+
+    res.json(flights);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Kan vluchten niet ophalen' });
+  }
 });
 
+// Subscription endpoint
 const subs = new Set();
-app.post('/api/subscribe',(req,res)=>{
-  const { email } = req.body||{};
-  if(!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return res.status(400).json({ok:false,error:'invalid_email'});
+app.post('/api/subscribe', (req, res) => {
+  const { email } = req.body || {};
+  if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return res.status(400).json({ ok: false, error: 'invalid_email' });
   subs.add(email.toLowerCase());
-  res.json({ok:true});
+  res.json({ ok: true });
 });
 
-app.listen(PORT,()=>console.log('Server running on port',PORT));
+app.listen(PORT, () => console.log('Server running on port', PORT));
