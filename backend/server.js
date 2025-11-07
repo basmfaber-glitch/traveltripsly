@@ -13,22 +13,16 @@ app.get('/api/health', (req, res) => res.json({ ok: true, time: new Date().toISO
 
 // Flights endpoint via Aviasales
 app.get('/api/flights', async (req, res) => {
-  const q = (req.query.q || '').toString().toUpperCase(); // bv. AMS-BCN
-  const month = (req.query.month || '').toString(); // YYYY-MM
-  const maxPrice = parseFloat(req.query.maxPrice || '0');
+  const origin = (req.query.origin || '').toUpperCase();
+  const destination = (req.query.destination || '').toUpperCase();
 
-  // Voorbeeld: q = 'AMS-BCN', split naar origin/destination
-  const [origin, destination] = q.split('-');
-
-  let flights = [];
-  if (origin && destination) {
-    flights = await getFlights(origin, destination, month ? `${month}-01` : undefined);
-    if (!isNaN(maxPrice) && maxPrice > 0) {
-      flights = flights.filter(f => f.price <= maxPrice);
-    }
+  try {
+    const flights = await getFlights(origin, destination);
+    res.json(flights);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: 'API_ERROR' });
   }
-
-  res.json(flights);
 });
 
 // Subscription endpoint
