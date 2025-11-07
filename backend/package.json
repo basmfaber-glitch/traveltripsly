@@ -1,14 +1,19 @@
 {
-  "name": "traveltripsly-backend",
+  "name": "traveltripsly",
   "version": "1.0.0",
-  "type": "module",
+  "description": "Backend voor TravelTripsly — Goedkope vluchten & deals",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.18.2",
     "cors": "^2.8.5",
-    "node-fetch": "^2.6.7"
-  }
+    "node-fetch": "^3.4.1"
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "license": "MIT"
 }
