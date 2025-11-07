@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+const fetch = require('node-fetch');
 
 const AVIASALES_API_KEY = '59099027a3bb2294ff7762bdb872cd2e'; // jouw API-key
 
