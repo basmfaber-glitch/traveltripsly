@@ -24,8 +24,10 @@
       <nav class="links"><a href="#deals">Deals</a><a href="#how">Hoe het werkt</a><a href="#alerts">Alerts</a></nav>
     </header>
 
-    <section class="hero container">
-      <div class="left">
+<section class="hero">
+  <div class="hero-overlay">
+    <div class="hero-container">
+      <div class="left glass-card">
         <h1>Vind de <em>goedkoopste</em> vlucht — zonder gedoe</h1>
         <p class="muted">Snel zoeken, slimme filters en prijsalerts.</p>
         <form id="searchForm" class="search">
@@ -36,10 +38,14 @@
         </form>
       </div>
       <div class="right">
+        <div class="glass-card stat">
+          <strong id="count">0</strong><span>deals</span>
+        </div>
         <img src="https://images.unsplash.com/photo-1505764706515-aa95265c5abc?q=80&w=1024&auto=format&fit=crop" alt="plane" />
-        <div class="stat glass"><strong id="count">0</strong><span>deals</span></div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
     <main class="container">
       <section id="deals" class="grid" aria-live="polite"></section>
