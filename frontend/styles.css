@@ -52,7 +52,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url('https://images.unsplash.com/photo-1505764706515-aa95265c5abc?q=80&w=1920&auto=format&fit=crop') center center / cover no-repeat;
+  background: url('C:\Users\Bas\Documents\traveltripsly_mvp\frontend\Images') center center / cover no-repeat;
 }
 
 .hero-overlay {
