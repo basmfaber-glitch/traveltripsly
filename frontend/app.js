@@ -1,40 +1,23 @@
-const backendURL = 'https://jouw-backend.onrender.com'; // vervang door je Render-backend URL
-
-const searchForm = document.getElementById('searchForm');
+// Vluchten zoeken
+const form = document.getElementById('searchForm');
 const dealsContainer = document.getElementById('deals');
 const emptyContainer = document.getElementById('empty');
 
-searchForm.addEventListener('submit', async (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
-
-  const q = document.getElementById('q').value.trim().toUpperCase(); // bv. AMS-BCN
-  const month = document.getElementById('month').value; // bv. 2025-09
+  const origin = document.getElementById('origin').value.trim().toUpperCase();
+  const destination = document.getElementById('destination').value.trim().toUpperCase();
+  const month = document.getElementById('month').value; // 'YYYY-MM'
   const maxPrice = document.getElementById('maxPrice').value;
-
-  // toegevoegd snippet
-  const origin = "AMS";
-  const destination = q || "BCN"; // wat gebruiker invult
-
-  fetch(`https://traveltripsly-backend.onrender.com/api/flights?origin=${origin}&destination=${destination}`)
-    .then(res => res.json())
-    .then(showFlights)
-    .catch(console.error);
 
   dealsContainer.innerHTML = '';
   emptyContainer.style.display = 'none';
 
-  if (!q.includes('-')) {
-    alert('Gebruik formaat: ORIGIN-DESTINATION, bv. AMS-BCN');
-    return;
-  }
-
   try {
-    const url = `${backendURL}/api/flights?q=${encodeURIComponent(q)}&month=${encodeURIComponent(month)}&maxPrice=${encodeURIComponent(maxPrice)}`;
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const flights = await response.json();
+    const res = await fetch(`/api/flights?origin=${origin}&destination=${destination}&month=${month}&maxPrice=${maxPrice}`);
+    const flights = await res.json();
 
-    if (!Array.isArray(flights) || flights.length === 0) {
+    if (!flights.length) {
       emptyContainer.style.display = 'block';
       return;
     }
@@ -43,20 +26,49 @@ searchForm.addEventListener('submit', async (e) => {
       const card = document.createElement('div');
       card.className = 'card deal';
       card.innerHTML = `
-        <img src="${f.image || ''}" alt="Vlucht naar ${f.destination || ''}">
-        <h3>${f.origin || ''} → ${f.destination || ''}</h3>
+        <img src="${f.image}" alt="${f.origin}-${f.destination}">
         <div class="price">
-          <span>${f.price ? f.price + '€' : ''}</span>
-          <span>${f.duration || ''}</span>
+          <span>${f.origin} → ${f.destination}</span>
+          <strong>€${f.price}</strong>
         </div>
-        <p>${f.airline || ''} ${f.direct ? '(Direct)' : ''}</p>
-        <div class="cta"><a href="${f.link || '#'}" target="_blank" rel="noopener">Boek nu</a></div>
+        <p>${f.airline} — ${f.duration} ${f.direct ? '(Direct)' : ''}</p>
+        <div class="cta"><a href="${f.link}" target="_blank">Boek nu</a></div>
       `;
       dealsContainer.appendChild(card);
     });
   } catch (err) {
-    console.error('Error fetching flights', err);
-    alert('Kon geen resultaten ophalen.');
-    emptyContainer.style.display = 'block';
+    console.error('Fout bij ophalen vluchten:', err);
+  }
+});
+
+// Prijsalerts
+const alertForm = document.getElementById('alertForm');
+const alertMsg = document.getElementById('alertMsg');
+
+alertForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('email').value.trim();
+  const origin = document.getElementById('alert_origin').value.trim().toUpperCase();
+  const destination = document.getElementById('alert_destination').value.trim().toUpperCase();
+  const maxPrice = document.getElementById('alert_max').value;
+
+  try {
+    const res = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, origin, destination, maxPrice })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      alertMsg.textContent = 'Je bent succesvol geabonneerd!';
+      alertForm.reset();
+    } else {
+      alertMsg.style.color = 'red';
+      alertMsg.textContent = 'Fout bij abonnement. Controleer je gegevens.';
+    }
+  } catch (err) {
+    console.error('Fout bij abonnement:', err);
+    alertMsg.style.color = 'red';
+    alertMsg.textContent = 'Er is een fout opgetreden.';
   }
 });
