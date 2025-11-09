@@ -11,6 +11,15 @@ searchForm.addEventListener('submit', async (e) => {
   const month = document.getElementById('month').value; // bv. 2025-09
   const maxPrice = document.getElementById('maxPrice').value;
 
+  // toegevoegd snippet
+  const origin = "AMS";
+  const destination = q || "BCN"; // wat gebruiker invult
+
+  fetch(`https://traveltripsly-backend.onrender.com/api/flights?origin=${origin}&destination=${destination}`)
+    .then(res => res.json())
+    .then(showFlights)
+    .catch(console.error);
+
   dealsContainer.innerHTML = '';
   emptyContainer.style.display = 'none';
 
