@@ -1,72 +1,39 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TravelTripsly — Goedkope vluchten & deals</title>
-  <meta name="description" content="Vind snel goedkope vluchten en ontvang prijsalerts.">
-  <link rel="stylesheet" href="./styles.css" />
-  <!-- Travelpayouts tracking script -->
-<script data-noptimize="1" data-cfasync="false" data-wpfc-render="false">
-  (function () {
-      var script = document.createElement("script");
-      script.async = 1;
-      script.src = 'https://emrldtp.com/NDYxMzI1.js?t=461325';
-      document.head.appendChild(script);
-  })();
-</script>
-
-</head>
-<body>
-  <div class="bg">
-    <header class="nav container">
-      <div class="brand">TravelTripsly</div>
-      <nav class="links"><a href="#deals">Deals</a><a href="#how">Hoe het werkt</a><a href="#alerts">Alerts</a></nav>
-    </header>
-
-<section class="hero">
-  <div class="hero-overlay">
-    <div class="hero-container">
-      <div class="left glass-card">
-        <h1>Vind de <em>goedkoopste</em> vlucht — zonder gedoe</h1>
-        <p class="muted">Snel zoeken, slimme filters en prijsalerts.</p>
-        <form id="searchForm" class="search">
-          <input id="q" type="text" placeholder="Bestemming (bv. Barcelona)" />
-          <input id="month" type="month" />
-          <input id="maxPrice" type="number" placeholder="Max €" min="0" />
-          <button type="submit">Zoeken</button>
-        </form>
-      </div>
-      <div class="right">
-        <div class="glass-card stat">
-          <strong id="count">0</strong><span>deals </span>
-        </div>
-        <img src="https://images.unsplash.com/photo-1500835556837-99ac94a94552?auto=format&fit=crop&w=500&q=60" alt="Vliegtuig in de lucht" alt="plane" />
-      </div>
-    </div>
+<section class="hero container">
+  <div class="left">
+    <h1>Vind de <em>goedkoopste</em> vlucht — zonder gedoe</h1>
+    <p class="muted">Snel zoeken, slimme filters en prijsalerts.</p>
+    <form id="searchForm" class="search">
+      <input id="origin" type="text" placeholder="Vertrek (bv. AMS)" required />
+      <input id="destination" type="text" placeholder="Bestemming (bv. LON)" required />
+      <input id="month" type="month" />
+      <input id="maxPrice" type="number" placeholder="Max €" min="0" />
+      <button type="submit">Zoeken</button>
+    </form>
+  </div>
+  <div class="right">
+    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1024&q=80" alt="plane" />
   </div>
 </section>
 
-    <main class="container">
-      <section id="deals" class="grid" aria-live="polite"></section>
-      <div id="empty" class="empty container"><h3>Zoek je volgende bestemming</h3><p>Voer een stad in en klik 'Zoeken'.</p></div>
-
-      <section id="alerts" class="container">
-        <div class="card glass">
-          <h2>Ontvang prijsalerts</h2>
-          <form id="alertForm">
-            <input id="email" type="email" placeholder="jij@voorbeeld.nl" required />
-            <input id="alert_q" type="text" placeholder="Bestemming (bv. BCN)" required />
-            <input id="alert_max" type="number" placeholder="Max €" required />
-            <button type="submit">Abonneren</button>
-          </form>
-        </div>
-      </section>
-    </main>
-
-    <footer class="container footer">© <span id="year"></span> TravelTripsly</footer>
+<main class="container">
+  <section id="deals" class="grid" aria-live="polite"></section>
+  <div id="empty" class="empty container">
+    <h3>Zoek je volgende bestemming</h3>
+    <p>Voer een stad in en klik 'Zoeken'.</p>
   </div>
 
-  <script src="./app.js"></script>
-</body>
-</html>
+  <!-- Prijsalerts -->
+  <section id="alerts" class="container">
+    <div class="card glass">
+      <h2>Ontvang prijsalerts</h2>
+      <form id="alertForm">
+        <input id="email" type="email" placeholder="jij@voorbeeld.nl" required />
+        <input id="alert_origin" type="text" placeholder="Vertrek (bv. AMS)" required />
+        <input id="alert_destination" type="text" placeholder="Bestemming (bv. BCN)" required />
+        <input id="alert_max" type="number" placeholder="Max €" required />
+        <button type="submit">Abonneren</button>
+      </form>
+      <p id="alertMsg" style="color:green;margin-top:8px;"></p>
+    </div>
+  </section>
+</main>
