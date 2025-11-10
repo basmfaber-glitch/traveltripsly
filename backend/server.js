@@ -1,4 +1,3 @@
-
 import express from 'express';
 import cors from 'cors';
 import { getFlights } from './flights.js';
@@ -9,11 +8,14 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Health endpoint
 app.get('/api/health', (req, res) => res.json({ ok: true, time: new Date().toISOString() }));
 
+// Flights endpoint
 app.get('/api/flights', async (req, res) => {
   const origin = (req.query.origin || '').toUpperCase();
   const destination = (req.query.destination || '').toUpperCase();
+
   try {
     const flights = await getFlights(origin, destination);
     res.json(flights);
@@ -23,6 +25,7 @@ app.get('/api/flights', async (req, res) => {
   }
 });
 
+// Subscription endpoint
 const subs = new Set();
 app.post('/api/subscribe', (req, res) => {
   const { email } = req.body || {};
