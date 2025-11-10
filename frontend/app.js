@@ -1,4 +1,4 @@
-const BACKEND_URL = 'https://traveltripsly.onrender.com'; // <--- je eigen Render backend URL
+const BACKEND_URL = 'https://traveltripsly.onrender.com'; // je Render backend
 
 const form = document.getElementById('searchForm');
 const dealsContainer = document.getElementById('deals');
@@ -15,7 +15,7 @@ form.addEventListener('submit', async (e) => {
   emptyContainer.style.display = 'none';
 
   try {
-    const res = await fetch(`https://traveltripsly-1.onrender.com/api/flights?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}&month=${encodeURIComponent(month)}&maxPrice=${encodeURIComponent(maxPrice)}`);
+    const res = await fetch(`${BACKEND_URL}/api/flights?origin=${origin}&destination=${destination}&month=${month}&maxPrice=${maxPrice}`);
     const flights = await res.json();
 
     if (!flights.length) {
@@ -25,7 +25,7 @@ form.addEventListener('submit', async (e) => {
 
     flights.forEach(flight => {
       const card = document.createElement("div");
-      card.className = "flight-card";
+      card.className = "card flight-card";
       card.innerHTML = `
         <h3>${flight.origin} ✈️ ${flight.destination}</h3>
         <p>Vertrek: ${new Date(flight.date).toLocaleDateString()}</p>
@@ -40,7 +40,7 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-// Alerts form
+// Alerts
 const alertForm = document.getElementById('alertForm');
 const alertMsg = document.getElementById('alertMsg');
 if (alertForm) {
@@ -67,7 +67,6 @@ if (alertForm) {
         alertMsg.textContent = 'Fout bij abonnement.';
       }
     } catch (err) {
-      console.error('Fout bij abonnement:', err);
       alertMsg.style.color = 'red';
       alertMsg.textContent = 'Er is een fout opgetreden.';
     }
