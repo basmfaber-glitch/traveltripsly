@@ -24,10 +24,11 @@ export async function getFlights(origin, destination) {
       duration: `${Math.floor(f.duration / 60)}u ${f.duration % 60}m`,
       airline: f.airline || "Onbekend",
       image: "https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=1000&auto=format&fit=crop",
-      link: `https://aviasales.com/${f.link || ""}`
+      link: `https://www.aviasales.com/${f.link || ""}`
     }));
   } catch (err) {
     console.error("Error fetching flights:", err.message);
     return [];
   }
 }
+
