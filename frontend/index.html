@@ -1,60 +1,152 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TravelTripsly — Goedkope vluchten & deals</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TravelTripsly ✈️ Goedkope Vluchten</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: linear-gradient(to bottom, #eef5ff, #ffffff);
+      color: #222;
+      text-align: center;
+    }
+
+    header {
+      background: #0078ff;
+      color: white;
+      padding: 2rem 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    form {
+      margin: 2rem auto;
+      padding: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      background: white;
+      border-radius: 12px;
+      max-width: 800px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    input, select, button {
+      padding: 0.6rem;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    button {
+      background: #0078ff;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #005ecc;
+    }
+
+    .flights {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .flight-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+
+    .flight-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .flight-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .flight-card h3 {
+      margin: 0.5rem 0;
+      font-size: 1.2rem;
+    }
+
+    .flight-card p {
+      margin: 0.25rem 0;
+    }
+
+    .book-btn {
+      display: inline-block;
+      margin: 0.5rem 0 1rem;
+      padding: 0.5rem 1rem;
+      background: #0078ff;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .book-btn:hover {
+      background: #005ecc;
+    }
+
+    #empty {
+      display: none;
+      margin: 2rem 0;
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding: 1rem;
+      font-size: 0.9rem;
+      background: #f4f7fb;
+      color: #444;
+    }
+  </style>
 </head>
+
 <body>
-  <header class="nav container">
-    <div class="brand">TravelTripsly</div>
+  <header>
+    <h1>✈️ TravelTripsly</h1>
+    <p>Vind de goedkoopste vluchten wereldwijd</p>
   </header>
 
-  <section class="hero">
-    <div class="hero-overlay">
-      <div class="hero-container container">
-        <div class="left glass-card">
-          <h1>✈️ Vind de <em>goedkoopste</em> vlucht</h1>
-          <p class="muted">Snel zoeken, slimme filters en prijsalerts.</p>
-          <form id="searchForm" class="search">
-            <input id="origin" type="text" placeholder="Vertrek (bv. AMS)" required />
-            <input id="destination" type="text" placeholder="Bestemming (bv. LON)" required />
-            <input id="month" type="month" />
-            <input id="maxPrice" type="number" placeholder="Max €" min="0" />
-            <button type="submit">Zoeken</button>
-          </form>
-        </div>
-        <div class="right">
-          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1024&q=80" alt="plane" />
-        </div>
-      </div>
-    </div>
-  </section>
+  <main>
+    <form id="searchForm">
+      <input id="origin" type="text" placeholder="Vertrek (bv. AMS)" required />
+      <input id="destination" type="text" placeholder="Bestemming (bv. BCN)" required />
+      <input id="month" type="month" />
+      <input id="maxPrice" type="number" placeholder="Max prijs (€)" />
+      <button type="submit">Zoek vluchten</button>
+    </form>
 
-  <main class="container">
-    <section id="deals" class="grid" aria-live="polite"></section>
-    <div id="empty" class="empty container">
-      <h3>Zoek je volgende bestemming</h3>
-      <p>Voer een route in en klik 'Zoeken'.</p>
-    </div>
-
-    <section id="alerts" class="container">
-      <div class="card glass">
-        <h2>Ontvang prijsalerts</h2>
-        <form id="alertForm">
-          <input id="email" type="email" placeholder="jij@voorbeeld.nl" required />
-          <input id="alert_origin" type="text" placeholder="Vertrek (bv. AMS)" required />
-          <input id="alert_destination" type="text" placeholder="Bestemming (bv. BCN)" required />
-          <input id="alert_max" type="number" placeholder="Max €" required />
-          <button type="submit">Abonneren</button>
-        </form>
-        <p id="alertMsg" style="color:green;margin-top:8px;"></p>
-      </div>
-    </section>
+    <div id="empty">Geen resultaten gevonden 😢</div>
+    <div id="deals" class="flights"></div>
   </main>
 
-  <footer class="container footer">© <span id="year"></span> TravelTripsly</footer>
+  <footer>
+    <p>&copy; <span id="year"></span> TravelTripsly — Alle rechten voorbehouden</p>
+  </footer>
 
   <script src="app.js"></script>
 </body>
