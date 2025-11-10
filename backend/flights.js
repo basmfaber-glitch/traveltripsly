@@ -1,43 +1,44 @@
-import fetch from "node-fetch";
-
 const API_KEY = "59099027a3bb2294ff7762bdb872cd2e";
 
-// Als je Node 18+ gebruikt, is fetch standaard beschikbaar
 export async function getFlights(origin, destination, month, maxPrice) {
   if (!origin || !destination) return [];
 
-  const url = `https://api.aviasales.com/v2/prices/latest?origin=${origin}&destination=${destination}&currency=EUR&token=${API_KEY}`;
+  // Using Travelpayouts / Aviasales prices endpoint - adjust if your plan uses other endpoints
+  const url = `https://api.travelpayouts.com/v2/prices/latest?origin=${origin}&destination=${destination}&currency=EUR&token=${API_KEY}`;
 
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error("Aviasales API error");
+    if (!response.ok) throw new Error(`Aviasales API error ${response.status}`);
     const data = await response.json();
 
-    if (!data.data || !Array.isArray(data.data)) return [];
+    // Adjust depending on returned structure; many endpoints use data.data or data.best_prices
+    const items = data.data || data.best_prices || [];
 
-    return data.data
+    // Normalize & filter
+    const results = (Array.isArray(items) ? items : Object.values(items))
       .filter(f => {
-        // filter op maand (YYYY-MM)
-        if (month && !f.departure_at.startsWith(month)) return false;
-        // filter op maxPrice
-        if (maxPrice && f.price > maxPrice) return false;
+        if (month && f.departure_at && !f.departure_at.startsWith(month)) return false;
+        if (maxPrice && f.value && f.value > maxPrice) return false;
         return true;
       })
       .map((f, i) => ({
-        id: `${f.origin}-${f.destination}-${i}`,
-        origin: f.origin,
-        destination: f.destination,
-        date: f.departure_at,
-        price: f.price,
-        direct: f.transfers === 0,
-        duration: `${Math.floor(f.duration / 60)}u ${f.duration % 60}m`,
-        airline: f.airline || "Onbekend",
-        image:
-          "https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=1000&auto=format&fit=crop",
-        link: `https://aviasales.com/${f.link || ""}`,
+        id: `${f.origin || origin}-${f.destination || destination}-${i}`,
+        origin: f.origin || origin,
+        destination: f.destination || destination,
+        date: f.departure_at || f.departure_date || "",
+        price: f.value || f.price || 0,
+        direct: ("transfers" in f) ? (f.transfers === 0) : (f.direct || false),
+        duration: f.duration ? `${Math.floor(f.duration/60)}u ${f.duration%60}m` : (f.flight_time || ""),
+        airline: f.airline || f.airline_iata || "Onbekend",
+        image: `https://source.unsplash.com/featured/?airplane,${f.destination || destination}`,
+        link: f.link ? `https://aviasales.com/${f.link}` : "#"
       }));
+
+    // sort by price asc
+    results.sort((a,b) => (a.price||0)-(b.price||0));
+    return results;
   } catch (err) {
-    console.error("Error fetching flights:", err.message);
+    console.error("Error fetching flights:", err);
     return [];
   }
 }
