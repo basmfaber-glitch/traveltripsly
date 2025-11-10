@@ -22,24 +22,17 @@ form.addEventListener('submit', async (e) => {
       return;
     }
 
-    flights.forEach(f => {
-      const card = document.createElement('div');
-      card.className = 'card deal';
-      card.innerHTML = `
-        <img src="${f.image}" alt="${f.origin}-${f.destination}" />
-        <div class="price">
-          <span>${f.origin} → ${f.destination}</span>
-          <strong>€${f.price}</strong>
-        </div>
-        <p>${f.airline} — ${f.duration} ${f.direct ? '(Direct)' : ''}</p>
-        <div class="cta"><a href="${f.link}" target="_blank">Boek nu</a></div>
-      `;
-      dealsContainer.appendChild(card);
-    });
-  } catch (err) {
-    console.error('Fout bij ophalen vluchten:', err);
-    emptyContainer.style.display = 'block';
-  }
+    data.forEach(flight => {
+  const card = document.createElement("div");
+  card.className = "flight-card";
+  card.innerHTML = `
+    <h3>${flight.origin} ✈️ ${flight.destination}</h3>
+    <p>Vertrek: ${new Date(flight.date).toLocaleDateString()}</p>
+    <p>Prijs: €${flight.price}</p>
+    <p>Duur: ${flight.duration}</p>
+    <a href="${flight.link}" target="_blank" class="book-btn">Boek nu</a>
+  `;
+  resultsContainer.appendChild(card);
 });
 
 // Alerts form
