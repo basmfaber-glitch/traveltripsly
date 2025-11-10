@@ -1,26 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>TravelTripsly — Goedkope vluchten & deals</title>
-<link rel="stylesheet" href="./styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TravelTripsly — Goedkope vluchten & deals</title>
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <header class="nav container">
     <div class="brand">TravelTripsly</div>
+    <nav class="links">
+      <a href="#deals">Deals</a>
+      <a href="#alerts">Prijsalerts</a>
+    </nav>
   </header>
+
+  <section class="hero container">
+    <div class="left">
+      <h1>Vind de <em>goedkoopste</em> vlucht</h1>
+      <form id="searchForm" class="search">
+        <input id="origin" type="text" placeholder="Vertrek (bijv. AMS)" required />
+        <input id="destination" type="text" placeholder="Bestemming (bijv. BCN)" required />
+        <button type="submit">Zoeken</button>
+      </form>
+    </div>
+  </section>
+
   <main class="container">
-    <form id="searchForm" class="search">
-      <input id="origin" type="text" placeholder="Vertrek (bv. AMS)" />
-      <input id="destination" type="text" placeholder="Bestemming (bv. BCN)" />
-      <input id="month" type="month" />
-      <input id="maxPrice" type="number" placeholder="Max €" min="0" />
-      <button type="submit">Zoeken</button>
-    </form>
     <section id="deals" class="grid"></section>
-    <div id="empty" class="empty container"><h3>Zoek je volgende bestemming</h3><p>Voer een stad in en klik 'Zoeken'.</p></div>
+    <div id="empty" class="empty container">Voer een bestemming in en klik 'Zoeken'.</div>
+
     <section id="alerts" class="container">
       <div class="card glass">
         <h2>Ontvang prijsalerts</h2>
@@ -28,10 +37,11 @@
           <input id="email" type="email" placeholder="jij@voorbeeld.nl" required />
           <button type="submit">Abonneren</button>
         </form>
-        <p id="alertMsg"></p>
+        <div id="alertMsg"></div>
       </div>
     </section>
   </main>
+
   <footer class="container footer">© <span id="year"></span> TravelTripsly</footer>
   <script src="./app.js"></script>
 </body>
