@@ -11,7 +11,7 @@ form.addEventListener('submit', async (e) => {
   const destination = document.getElementById('destination').value.trim().toUpperCase();
 
   try {
-    const res = await fetch(`/api/flights?origin=${origin}&destination=${destination}`);
+    const res = await fetch(` https://traveltripsly-1.onrender.com`);
     const flights = await res.json();
 
     if (!flights.length) {
