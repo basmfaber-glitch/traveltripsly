@@ -11,33 +11,45 @@
     <div class="brand">TravelTripsly</div>
     <nav class="links">
       <a href="#deals">Deals</a>
-      <a href="#alerts">Prijsalerts</a>
+      <a href="#alerts">Alerts</a>
     </nav>
   </header>
 
-  <section class="hero container">
-    <div class="left">
-      <h1>Vind de <em>goedkoopste</em> vlucht</h1>
-      <form id="searchForm" class="search">
-        <input id="origin" type="text" placeholder="Vertrek (bijv. AMS)" required />
-        <input id="destination" type="text" placeholder="Bestemming (bijv. BCN)" required />
-        <button type="submit">Zoeken</button>
-      </form>
+  <section class="hero">
+    <div class="hero-overlay">
+      <div class="hero-container container">
+        <div class="left">
+          <h1>Vind de <em>goedkoopste</em> vlucht</h1>
+          <form id="searchForm" class="search">
+            <input id="origin" type="text" placeholder="Vertrek (AMS)" required />
+            <input id="destination" type="text" placeholder="Bestemming (BCN)" required />
+            <input id="month" type="month" />
+            <input id="maxPrice" type="number" placeholder="Max €" min="0" />
+            <button type="submit">Zoeken</button>
+          </form>
+        </div>
+        <div class="right">
+          <img src="https://images.unsplash.com/photo-1505764706515-aa95265c5abc?q=80&w=1024&auto=format&fit=crop" alt="plane" />
+        </div>
+      </div>
     </div>
   </section>
 
   <main class="container">
-    <section id="deals" class="grid"></section>
-    <div id="empty" class="empty container">Voer een bestemming in en klik 'Zoeken'.</div>
+    <section id="deals" class="grid" aria-live="polite"></section>
+    <div id="empty" class="empty">Voer een vlucht in om te zoeken.</div>
 
     <section id="alerts" class="container">
       <div class="card glass">
         <h2>Ontvang prijsalerts</h2>
         <form id="alertForm">
           <input id="email" type="email" placeholder="jij@voorbeeld.nl" required />
+          <input id="alert_origin" type="text" placeholder="Vertrek" required />
+          <input id="alert_destination" type="text" placeholder="Bestemming" required />
+          <input id="alert_max" type="number" placeholder="Max €" required />
           <button type="submit">Abonneren</button>
+          <p id="alertMsg"></p>
         </form>
-        <div id="alertMsg"></div>
       </div>
     </section>
   </main>
