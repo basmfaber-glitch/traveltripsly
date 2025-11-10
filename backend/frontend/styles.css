@@ -14,11 +14,12 @@
 }
 
 body {
-  margin: 0;
-  font-family: Inter, system-ui, Segoe UI, Roboto, Arial;
-  color: var(--fg);
-  background: linear-gradient(180deg, var(--bg) 0%, #ffd6a5 100%);
-  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+  background: #f9fafb;
+  color: #111;
+  max-width: 600px;
+  margin: 40px auto;
+  text-align: center;
 }
 
 /* Container */
@@ -121,10 +122,11 @@ body {
   margin-top: 20px;
 }
 .card {
-  background: var(--card);
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.03);
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin: 10px 0;
+  padding: 10px;
 }
 .deal img {
   width: 100%; 

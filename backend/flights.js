@@ -1,10 +1,12 @@
+import fetch from "node-fetch";
+
 const API_KEY = "59099027a3bb2294ff7762bdb872cd2e";
 
 // Als je Node 18+ gebruikt, is fetch standaard beschikbaar
 export async function getFlights(origin, destination, month, maxPrice) {
   if (!origin || !destination) return [];
 
-  const url = `https://api.aviasales.com/v2/prices?origin=${origin}&destination=${destination}&currency=EUR&token=${API_KEY}`;
+  const url = `https://api.aviasales.com/v2/prices/latest?origin=${origin}&destination=${destination}&currency=EUR&token=${API_KEY}`;
 
   try {
     const response = await fetch(url);

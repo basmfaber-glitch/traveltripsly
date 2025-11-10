@@ -1,14 +1,16 @@
 // Vluchten zoeken
-const form = document.getElementById('searchForm');
+const form = document.getElementById("searchForm");
+const resultsDiv = document.getElementById("results");
 const dealsContainer = document.getElementById('deals');
 const emptyContainer = document.getElementById('empty');
 
-form.addEventListener('submit', async (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const origin = document.getElementById('origin').value.trim().toUpperCase();
-  const destination = document.getElementById('destination').value.trim().toUpperCase();
+  const origin = document.getElementById("origin").value.trim();
+  const destination = document.getElementById("destination").value.trim();
   const month = document.getElementById('month').value; // 'YYYY-MM'
   const maxPrice = document.getElementById('maxPrice').value;
+  resultsDiv.innerHTML = "Laden...";
 
   dealsContainer.innerHTML = '';
   emptyContainer.style.display = 'none';
@@ -22,22 +24,20 @@ form.addEventListener('submit', async (e) => {
       return;
     }
 
-    flights.forEach(f => {
-      const card = document.createElement('div');
-      card.className = 'card deal';
-      card.innerHTML = `
-        <img src="${f.image}" alt="${f.origin}-${f.destination}">
-        <div class="price">
-          <span>${f.origin} → ${f.destination}</span>
-          <strong>€${f.price}</strong>
+    resultsDiv.innerHTML = flights
+      .map(
+        (f) => `
+        <div class="card">
+          <h3>${f.origin} ✈️ ${f.destination}</h3>
+          <p>€${f.price} — ${f.duration}</p>
+          <p>${f.date}</p>
+          <a href="${f.link}" target="_blank">Bekijk</a>
         </div>
-        <p>${f.airline} — ${f.duration} ${f.direct ? '(Direct)' : ''}</p>
-        <div class="cta"><a href="${f.link}" target="_blank">Boek nu</a></div>
-      `;
-      dealsContainer.appendChild(card);
-    });
+      `
+      )
+      .join("");
   } catch (err) {
-    console.error('Fout bij ophalen vluchten:', err);
+    resultsDiv.innerHTML = "<p>Fout bij laden van data.</p>";
   }
 });
 

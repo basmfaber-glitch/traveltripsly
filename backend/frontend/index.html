@@ -1,39 +1,21 @@
-<section class="hero container">
-  <div class="left">
-    <h1>Vind de <em>goedkoopste</em> vlucht — zonder gedoe</h1>
-    <p class="muted">Snel zoeken, slimme filters en prijsalerts.</p>
-    <form id="searchForm" class="search">
-      <input id="origin" type="text" placeholder="Vertrek (bv. AMS)" required />
-      <input id="destination" type="text" placeholder="Bestemming (bv. LON)" required />
-      <input id="month" type="month" />
-      <input id="maxPrice" type="number" placeholder="Max €" min="0" />
-      <button type="submit">Zoeken</button>
-    </form>
-  </div>
-  <div class="right">
-    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1024&q=80" alt="plane" />
-  </div>
-</section>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flight Finder</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>✈️ Zoek Vluchten</h1>
+  <form id="searchForm">
+    <input id="origin" placeholder="Vertrek (AMS)" required />
+    <input id="destination" placeholder="Bestemming (BCN)" required />
+    <button type="submit">Zoeken</button>
+  </form>
 
-<main class="container">
-  <section id="deals" class="grid" aria-live="polite"></section>
-  <div id="empty" class="empty container">
-    <h3>Zoek je volgende bestemming</h3>
-    <p>Voer een stad in en klik 'Zoeken'.</p>
-  </div>
+  <div id="results"></div>
 
-  <!-- Prijsalerts -->
-  <section id="alerts" class="container">
-    <div class="card glass">
-      <h2>Ontvang prijsalerts</h2>
-      <form id="alertForm">
-        <input id="email" type="email" placeholder="jij@voorbeeld.nl" required />
-        <input id="alert_origin" type="text" placeholder="Vertrek (bv. AMS)" required />
-        <input id="alert_destination" type="text" placeholder="Bestemming (bv. BCN)" required />
-        <input id="alert_max" type="number" placeholder="Max €" required />
-        <button type="submit">Abonneren</button>
-      </form>
-      <p id="alertMsg" style="color:green;margin-top:8px;"></p>
-    </div>
-  </section>
-</main>
+  <script src="app.js"></script>
+</body>
+</html>
