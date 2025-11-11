@@ -1,42 +1,73 @@
-:root {
-  --bg: #fff3e2;
-  --card: #ffe0b5;
-  --muted: #a17a69;
-  --fg: #4b2e05;
-  --brand: #ff7a00;
-  --accent: #ffb347;
-}
-
 body {
+  font-family: 'Poppins', sans-serif;
+  background: #f7f9fb;
   margin: 0;
-  font-family: Inter, system-ui, Roboto, Arial;
-  color: var(--fg);
-  background: linear-gradient(180deg, var(--bg), #ffd6a5);
-  min-height: 100vh;
+  color: #222;
+  text-align: center;
 }
 
-.container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+header {
+  background: linear-gradient(135deg, #0078ff, #00c6ff);
+  color: white;
+  padding: 2rem 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
 
-.nav { display:flex; justify-content: space-between; align-items:center; }
-.brand { font-weight:800; font-size:20px; }
-.links a { color:var(--muted); margin-left:16px; text-decoration:none; }
+form {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
 
-.hero { position:relative; height:70vh; display:flex; align-items:center; justify-content:center; background:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; }
-.hero-overlay { background:rgba(0,0,0,0.3); width:100%; height:100%; display:flex; justify-content:center; align-items:center; }
-.hero-container { display:grid; grid-template-columns:1.1fr .9fr; gap:24px; align-items:center; width:100%; max-width:1000px; color:white; }
+input, button {
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
 
-.search input, .search button { padding:10px; border-radius:10px; border:none; }
-.search input { flex:1; margin-right:10px; }
-.search button { background:linear-gradient(90deg,var(--brand),var(--accent)); color:white; cursor:pointer; font-weight:600; }
+button {
+  background-color: #0078ff;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
 
-.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; margin-top:20px; }
-.card { background:var(--card); padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,.03); }
-.flight-card img { width:100%; border-radius:10px; }
-.book-btn { display:inline-block; padding:8px 12px; border-radius:8px; background:linear-gradient(90deg,var(--brand),var(--accent)); color:white; text-decoration:none; margin-top:8px; }
+button:hover {
+  background-color: #005ecb;
+}
 
-.glass { backdrop-filter:blur(12px); background: rgba(255,255,255,0.1); border-radius:20px; padding:20px; box-shadow:0 8px 32px rgba(0,0,0,0.15); }
+#deals {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+}
 
-.empty { padding:40px; text-align:center; color:var(--muted); }
-.footer { margin:40px 0 80px; text-align:center; color:var(--muted); }
+.flight-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  padding-bottom: 1rem;
+}
 
-@media(max-width:900px){ .hero-container { grid-template-columns:1fr; } }
+.flight-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.book-btn {
+  background: #00c6ff;
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.book-btn:hover {
+  background: #009edb;
+}
