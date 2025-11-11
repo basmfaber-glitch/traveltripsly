@@ -1,60 +1,33 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TravelTripsly — Goedkope vluchten & deals</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TravelTripsly ✈️ Goedkope Vluchten</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="nav container">
-    <div class="brand">TravelTripsly</div>
-    <nav class="links">
-      <a href="#deals">Deals</a>
-      <a href="#alerts">Alerts</a>
-    </nav>
+  <header>
+    <h1>TravelTripsly ✈️</h1>
+    <p>Vind de goedkoopste vluchten wereldwijd</p>
   </header>
 
-  <section class="hero">
-    <div class="hero-overlay">
-      <div class="hero-container container">
-        <div class="left">
-          <h1>Vind de <em>goedkoopste</em> vlucht</h1>
-          <form id="searchForm" class="search">
-            <input id="origin" type="text" placeholder="Vertrek (AMS)" required />
-            <input id="destination" type="text" placeholder="Bestemming (BCN)" required />
-            <input id="month" type="month" />
-            <input id="maxPrice" type="number" placeholder="Max €" min="0" />
-            <button type="submit">Zoeken</button>
-          </form>
-        </div>
-        <div class="right">
-          <img src="https://images.unsplash.com/photo-1505764706515-aa95265c5abc?q=80&w=1024&auto=format&fit=crop" alt="plane" />
-        </div>
-      </div>
-    </div>
+  <section id="search">
+    <form id="searchForm">
+      <input id="origin" type="text" placeholder="Vertrek (bijv. AMS)" required />
+      <input id="destination" type="text" placeholder="Bestemming (bijv. BCN)" required />
+      <input id="maxPrice" type="number" placeholder="Max prijs (€)" />
+      <button type="submit">Zoeken</button>
+    </form>
   </section>
 
-  <main class="container">
-    <section id="deals" class="grid" aria-live="polite"></section>
-    <div id="empty" class="empty">Voer een vlucht in om te zoeken.</div>
+  <section id="results">
+    <div id="deals"></div>
+    <div id="empty" style="display:none;">Geen vluchten gevonden.</div>
+  </section>
 
-    <section id="alerts" class="container">
-      <div class="card glass">
-        <h2>Ontvang prijsalerts</h2>
-        <form id="alertForm">
-          <input id="email" type="email" placeholder="jij@voorbeeld.nl" required />
-          <input id="alert_origin" type="text" placeholder="Vertrek" required />
-          <input id="alert_destination" type="text" placeholder="Bestemming" required />
-          <input id="alert_max" type="number" placeholder="Max €" required />
-          <button type="submit">Abonneren</button>
-          <p id="alertMsg"></p>
-        </form>
-      </div>
-    </section>
-  </main>
+  <footer>© <span id="year"></span> TravelTripsly</footer>
 
-  <footer class="container footer">© <span id="year"></span> TravelTripsly</footer>
-  <script src="./app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
