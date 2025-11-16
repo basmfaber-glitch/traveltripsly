@@ -1,77 +1,58 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TravelTripsly — Pandora Edition</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>TravelTripsly — Pandora Edition</title>
 
-  <!-- fonts (systeem + fallback) -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="style.css" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div class="page">
-
-    <header class="hero">
-      <canvas id="particles"></canvas>
-
-      <!-- Animated water SVG (gives 3D wave feel) -->
-      <div class="water-layer">
-        <svg class="waves" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
-          <defs>
-            <linearGradient id="g1" x1="0" x2="1">
-              <stop offset="0%" stop-color="#00243a" />
-              <stop offset="100%" stop-color="#001424" />
-            </linearGradient>
-          </defs>
-          <path id="wavePath" fill="url(#g1)" d=""></path>
-          <g class="wave-glow" opacity="0.14"></g>
-        </svg>
-      </div>
-
-      <div class="hero-content">
-        <div class="logo">
-          <div class="orb"></div>
-          <h1>TravelTripsly</h1>
-        </div>
-        <p class="subtitle">Find magical flight deals — The Way of Water theme</p>
-
-        <div class="controls">
-          <label class="toggle">
-            <input id="modeToggle" type="checkbox"/>
-            <span class="knob"></span>
-            <em>Glow</em>
-          </label>
-
-          <label class="daynight">
-            <input id="dayNightToggle" type="checkbox"/>
-            <span class="knob"></span>
-            <em>Day / Night</em>
-          </label>
-        </div>
-
-        <form id="searchForm" class="search">
-          <input id="origin" placeholder="Vertrek (AMS)" maxlength="3" required/>
-          <input id="destination" placeholder="Bestemming (DXB)" maxlength="3" required/>
-          <input id="maxPrice" type="number" placeholder="Max prijs (€)"/>
-          <button type="submit" class="btn">Zoeken</button>
-        </form>
-      </div>
-    </header>
-
-    <main>
-      <div id="loading" class="hidden">🌌 Vluchten laden...</div>
-      <div id="empty" class="hidden">Geen resultaten gevonden in dit universum...</div>
-      <section id="deals" class="deals-grid"></section>
-    </main>
-
-    <footer>
-      <p>© <span id="year"></span> TravelTripsly — Avatar Edition</p>
-    </footer>
+<div class="page">
+<header class="hero">
+  <canvas id="particles"></canvas>
+  <div class="water-layer">
+    <svg class="waves" viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <defs><linearGradient id="g1" x1="0" x2="1"><stop offset="0%" stop-color="#00243a"/><stop offset="100%" stop-color="#001424"/></linearGradient></defs>
+      <path id="wavePath" fill="url(#g1)"></path>
+      <g class="wave-glow"></g>
+    </svg>
   </div>
 
-  <script src="app.js" defer></script>
+  <div class="hero-content">
+    <div class="logo">
+      <div class="orb"></div>
+      <h1>TravelTripsly</h1>
+    </div>
+    <p class="subtitle">Find magical flight deals — The Way of Water</p>
+
+    <div class="controls">
+      <label class="toggle"><input id="modeToggle" type="checkbox"/><span class="knob"></span><em>Glow</em></label>
+      <label class="daynight"><input id="dayNightToggle" type="checkbox"/><span class="knob"></span><em>Day / Night</em></label>
+    </div>
+
+    <form id="searchForm" class="search">
+      <input id="origin" placeholder="Vertrek (AMS)" maxlength="3" required/>
+      <input id="destination" placeholder="Bestemming (DXB)" maxlength="3" required/>
+      <input id="maxPrice" type="number" placeholder="Max prijs (€)"/>
+      <button type="submit" class="btn">Zoeken</button>
+    </form>
+  </div>
+</header>
+
+<main>
+  <div id="loading" class="hidden">🌌 Vluchten laden...</div>
+  <div id="empty" class="hidden">Geen resultaten gevonden...</div>
+  <section id="deals" class="deals-grid"></section>
+</main>
+
+<footer>
+  <p>© <span id="year"></span> TravelTripsly — Avatar Edition</p>
+</footer>
+</div>
+
+<script src="app.js" type="module" defer></script>
 </body>
 </html>
