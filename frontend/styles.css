@@ -1,73 +1,127 @@
-body {
-  font-family: 'Poppins', sans-serif;
-  background: #f7f9fb;
+/* Global Pandora theme */
+* {
   margin: 0;
-  color: #222;
-  text-align: center;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
 }
 
+body {
+  background: radial-gradient(circle at top, #001a33, #000814 70%);
+  color: #cfe9ff;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Header */
 header {
-  background: linear-gradient(135deg, #0078ff, #00c6ff);
-  color: white;
-  padding: 2rem 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  padding: 60px 20px;
+  color: #7bdcff;
+  text-shadow: 0 0 20px #0af, 0 0 40px #0af;
 }
 
-form {
+header h1 {
+  font-size: 3rem;
+  letter-spacing: 2px;
+}
+
+header p {
+  margin-top: 10px;
+  opacity: 0.8;
+}
+
+/* Search box */
+#search {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-  padding: 1rem;
+  margin-top: 20px;
 }
 
-input, button {
-  padding: 0.7rem 1rem;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  font-size: 1rem;
+#searchForm {
+  display: flex;
+  gap: 10px;
 }
 
-button {
-  background-color: #0078ff;
-  color: white;
+#searchForm input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 2px solid #0af;
+  background: rgba(0, 30, 60, 0.4);
+  color: #d0f4ff;
+  width: 150px;
+  outline: none;
+  transition: 0.3s;
+}
+
+#searchForm input:focus {
+  box-shadow: 0 0 15px #3cf;
+}
+
+#searchForm button {
+  padding: 12px 20px;
+  background: #009dff;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s;
+  box-shadow: 0 0 20px #009dff;
+  transition: 0.3s;
 }
 
-button:hover {
-  background-color: #005ecb;
+#searchForm button:hover {
+  background: #00bbff;
+  box-shadow: 0 0 30px #33ccff;
 }
 
+/* Flight cards */
 #deals {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
-  padding: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+  padding: 40px;
 }
 
 .flight-card {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  overflow: hidden;
-  padding-bottom: 1rem;
+  background: rgba(0, 40, 80, 0.4);
+  border: 1px solid #0af;
+  border-radius: 15px;
+  padding: 15px;
+  color: #e0f8ff;
+  box-shadow: 0 0 30px #0077cc;
+  backdrop-filter: blur(10px);
+  transition: 0.3s;
+}
+
+.flight-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 50px #00baff;
 }
 
 .flight-card img {
   width: 100%;
-  height: 160px;
-  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
-.book-btn {
-  background: #00c6ff;
-  color: white;
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
-  text-decoration: none;
+/* Loading & empty states */
+.hidden {
+  display: none;
 }
 
-.book-btn:hover {
-  background: #009edb;
+#loading, #empty {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #7bdcff;
+  text-shadow: 0 0 15px #0af;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #7bdcff;
+  opacity: 0.6;
 }
