@@ -2,38 +2,52 @@
 const form = document.getElementById("searchForm");
 const dealsContainer = document.getElementById("deals");
 const emptyContainer = document.getElementById("empty");
+const loading = document.getElementById("loading");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const origin = document.getElementById("origin").value.trim().toUpperCase();
   const destination = document.getElementById("destination").value.trim().toUpperCase();
-  const maxPrice = document.getElementById("maxPrice").value;
+  const maxPrice = document.getElementById("maxPrice").value.trim();
 
   dealsContainer.innerHTML = "";
-  emptyContainer.style.display = "none";
+  emptyContainer.classList.add("hidden");
+
+  if (origin.length !== 3 || destination.length !== 3) {
+    alert("Gebruik geldige IATA-codes (bijv. AMS, DXB)");
+    return;
+  }
+
+  loading.classList.remove("hidden");
 
   try {
     const res = await fetch(`/api/flights?origin=${origin}&destination=${destination}&maxPrice=${maxPrice}`);
     const flights = await res.json();
 
+    loading.classList.add("hidden");
+
     if (!flights.length) {
-      emptyContainer.style.display = "block";
+      emptyContainer.classList.remove("hidden");
       return;
     }
 
-    flights.forEach(flight => {
+    flights.forEach((flight) => {
       const card = document.createElement("div");
       card.className = "flight-card";
+
       card.innerHTML = `
-        <img src="${flight.image}" alt="${flight.destination}">
+        <img src="${flight.image}">
         <h3>${flight.origin} ✈️ ${flight.destination}</h3>
-        <p>Vertrek: ${new Date(flight.date).toLocaleDateString()}</p>
-        <p>Prijs: <strong>€${flight.price}</strong></p>
-        <p>Duur: ${flight.duration}</p>
-        <p>Luchtvaartmaatschappij: ${flight.airline}</p>
-        <a href="${flight.link}" target="_blank" class="book-btn">Boek nu</a>
+
+        <p>📅 Vertrek: <strong>${new Date(flight.date).toLocaleDateString()}</strong></p>
+        <p>💰 Prijs: <strong>€${flight.price}</strong></p>
+        <p>⏱️ Duur: ${flight.duration}</p>
+        <p>🛫 Airline: ${flight.airline}</p>
+
+        <a target="_blank" href="${flight.link}" class="book-btn">Boek nu</a>
       `;
+
       dealsContainer.appendChild(card);
     });
   } catch (err) {
